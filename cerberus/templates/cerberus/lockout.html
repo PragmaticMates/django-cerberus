@@ -1,0 +1,8 @@
+{% load i18n %}
+
+<h2>{% trans "Access locked" %}</h2>
+
+<p>{% blocktrans with lockout.failed_attempts as failed_attempts %}The access to the site has been locked because you had more than {{ failed_attempts }}
+failed login attempts.{% endblocktrans %}</p>
+<p>{% blocktrans with lockout.ip_address as ip %}Your IP {{ ip }} has been locked for {{ lockout_time }} seconds.{% endblocktrans %}</p>
+<p>{% blocktrans with lockout.expiration_time as expiration_time_left  %}Lockout will expire in {{ expiration_time_left }} seconds.{% endblocktrans %}</p>

@@ -1,0 +1,14 @@
+{% load i18n future %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Cerberus by Pragmatic Mates</title>
+</head>
+<body>
+    <h1>Django Cerberus</h1>
+
+    User is logged in.<br>
+    <a href="{% url 'logout' %}">{% trans 'Logout' %}</a>
+</body>
+</html>
