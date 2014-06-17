@@ -31,8 +31,8 @@ def get_lockout(ip):
     Returns the Lockout object for a given IP.
     """
     try:
-        lockout = Lockout.objects.get(ip_address=ip, is_expired=False)
-    except Lockout.DoesNotExist:
+        lockout = Lockout.objects.filter(ip_address=ip, is_expired=False)[0]
+    except IndexError:
         lockout = None
 
     if lockout:
