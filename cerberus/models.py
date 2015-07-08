@@ -13,7 +13,7 @@ class Lockout(models.Model):
     username = models.CharField(max_length=255, verbose_name=_(u'username'), db_index=True,
         blank=True, null=True, default=None)
     failed_attempts = models.PositiveIntegerField(verbose_name=_(u'failed attempts'), default=0)
-    ip_address = models.IPAddressField(verbose_name=_(u'IP address'),
+    ip_address = models.GenericIPAddressField(verbose_name=_(u'IP address'),
         blank=True, null=True, default=None)
     user_agent = models.CharField(max_length=1024, verbose_name=_(u'user agent'),
         blank=True, null=True, default=None)
