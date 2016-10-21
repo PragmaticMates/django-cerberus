@@ -16,6 +16,8 @@ def watch_logins(func):
         response = func(request, *args, **kwargs)
         ip = get_ip_address(request)
 
+        # pass request.body as param
+        #username = request.POST.get('username', None)
         lockout = get_lockout(ip)
         lockout = check_failed_login(request, response, lockout)
 
@@ -31,6 +33,7 @@ def get_lockout(ip):
     Returns the Lockout object for a given IP.
     """
     try:
+        # get username to lookup
         lockout = Lockout.objects.filter(ip_address=ip, is_expired=False)[0]
     except IndexError:
         lockout = None
@@ -79,10 +82,19 @@ def check_failed_login(request, response, lockout):
 
 
 def get_locked_response(request, lockout):
-    return render_to_response(
-        'cerberus/lockout.html', {
-            'lockout': lockout,
-            'lockout_time': CERBERUS_LOCKOUT_TIME
-        },
-        context_instance=RequestContext(request)
-    )
+    try:
+        return render_to_response(
+            'cerberus/lockout.html', {
+                'lockout': lockout,
+                'lockout_time': CERBERUS_LOCKOUT_TIME
+            },
+            context=RequestContext(request)
+        )
+    except TypeError:
+        return render_to_response(
+            'cerberus/lockout.html', {
+                'lockout': lockout,
+                'lockout_time': CERBERUS_LOCKOUT_TIME
+            },
+            context_instance=RequestContext(request)
+        )
