@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.template import RequestContext
 
 from models import Lockout
@@ -83,12 +83,13 @@ def check_failed_login(request, response, lockout):
 
 def get_locked_response(request, lockout):
     try:
-        return render_to_response(
-            'cerberus/lockout.html', {
+        return render(
+            request=request,
+            template_name='cerberus/lockout.html',
+            context={
                 'lockout': lockout,
-                'lockout_time': CERBERUS_LOCKOUT_TIME
-            },
-            context=RequestContext(request)
+                'lockout_time': CERBERUS_LOCKOUT_TIME,
+            }
         )
     except TypeError:
         return render_to_response(
