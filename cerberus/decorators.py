@@ -1,8 +1,7 @@
-from django.shortcuts import render_to_response, render
-from django.template import RequestContext
+from django.shortcuts import render
 
-from models import Lockout
-from settings import CERBERUS_MAX_ATTEMPTS, CERBERUS_LOCKOUT_TIME
+from cerberus.models import Lockout
+from cerberus.settings import CERBERUS_MAX_ATTEMPTS, CERBERUS_LOCKOUT_TIME
 
 
 def get_ip_address(request):
@@ -92,10 +91,11 @@ def get_locked_response(request, lockout):
             }
         )
     except TypeError:
-        return render_to_response(
-            'cerberus/lockout.html', {
+        return render(
+            request=request,
+            template_name='cerberus/lockout.html',
+            context={
                 'lockout': lockout,
                 'lockout_time': CERBERUS_LOCKOUT_TIME
-            },
-            context_instance=RequestContext(request)
+            }
         )
