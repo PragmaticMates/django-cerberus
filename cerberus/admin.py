@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.utils.translation import ugettext as _
 
-from models import Lockout
+from cerberus.models import Lockout
 
 
+@admin.register(Lockout)
 class LockoutAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     list_display = ['ip_address', 'username', 'user_agent', 'failed_attempts', 'get_expiration_time_text',
@@ -28,5 +29,3 @@ class LockoutAdmin(admin.ModelAdmin):
     def unlock(self, request, queryset):
         queryset.update(is_locked=False)
     unlock.short_description = _(u'Unlock users')
-
-admin.site.register(Lockout, LockoutAdmin)

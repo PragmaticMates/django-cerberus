@@ -6,7 +6,7 @@ try:
 except ImportError:
     from datetime import datetime as timezone
 
-from settings import CERBERUS_LOCKOUT_TIME
+from cerberus.settings import CERBERUS_LOCKOUT_TIME
 
 
 class Lockout(models.Model):
