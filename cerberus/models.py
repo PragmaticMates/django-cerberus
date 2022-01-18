@@ -30,8 +30,8 @@ class Lockout(models.Model):
         verbose_name_plural = _(u'lockouts')
         ordering = ('-created', )
 
-    def __unicode__(self):
-        return u'%s: %s' % (self.username, self.ip_address)
+    def __str__(self):
+        return '%s: %s' % (self.username, self.ip_address)
 
     @property
     def expiration_time(self):
