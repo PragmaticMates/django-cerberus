@@ -1,10 +1,6 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
-
-try:
-    from django.utils import timezone
-except ImportError:
-    from datetime import datetime as timezone
+from django.utils.timezone import now
+from django.utils.translation import gettext_lazy as _
 
 from cerberus.settings import CERBERUS_LOCKOUT_TIME
 
@@ -41,8 +37,7 @@ class Lockout(models.Model):
         if CERBERUS_LOCKOUT_TIME <= 0:
             return None
 
-        now = timezone.now()
-        delta = now - self.modified
+        delta = now() - self.modified
         time_remaining = CERBERUS_LOCKOUT_TIME - delta.seconds
         return time_remaining
 

@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='django-cerberus',
-    version='0.3.5',
+    version='1.0.0',
     description='Django app that locks out users after too many failed login attempts.',
     long_description=open('README.rst').read(),
     author='Pragmatic Mates',
@@ -17,12 +17,10 @@ setup(
         'cerberus.migrations',
     ],
     include_package_data=True,
-    install_requires=('django',),
+    install_requires=('django>=3',),
     classifiers=[
         'Programming Language :: Python',
-        'Programming Language :: Python :: 2.5',
-        'Programming Language :: Python :: 2.6',
-        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3.9',
         'Operating System :: OS Independent',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
