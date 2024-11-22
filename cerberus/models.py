@@ -6,24 +6,24 @@ from cerberus.settings import CERBERUS_LOCKOUT_TIME
 
 
 class Lockout(models.Model):
-    username = models.CharField(max_length=255, verbose_name=_(u'username'), db_index=True,
+    username = models.CharField(max_length=255, verbose_name=_('username'), db_index=True,
         blank=True, null=True, default=None)
-    failed_attempts = models.PositiveIntegerField(verbose_name=_(u'failed attempts'), default=0)
-    ip_address = models.GenericIPAddressField(verbose_name=_(u'IP address'),
+    failed_attempts = models.PositiveIntegerField(verbose_name=_('failed attempts'), default=0)
+    ip_address = models.GenericIPAddressField(verbose_name=_('IP address'),
         blank=True, null=True, default=None)
-    user_agent = models.CharField(max_length=1024, verbose_name=_(u'user agent'),
+    user_agent = models.CharField(max_length=1024, verbose_name=_('user agent'),
         blank=True, null=True, default=None)
-    params_get = models.TextField(verbose_name=_(u'GET params'))
-    params_post = models.TextField(verbose_name=_(u'POST params'))
-    is_locked = models.BooleanField(verbose_name=_(u'locked'), default=False, db_index=True)
-    is_expired = models.BooleanField(verbose_name=_(u'expired'), default=False)
+    params_get = models.TextField(verbose_name=_('GET params'))
+    params_post = models.TextField(verbose_name=_('POST params'))
+    is_locked = models.BooleanField(verbose_name=_('locked'), default=False, db_index=True)
+    is_expired = models.BooleanField(verbose_name=_('expired'), default=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'cerberus_lockouts'
-        verbose_name = _(u'lockout')
-        verbose_name_plural = _(u'lockouts')
+        verbose_name = _('lockout')
+        verbose_name_plural = _('lockouts')
         ordering = ('-created', )
 
     def __str__(self):
@@ -48,11 +48,11 @@ class Lockout(models.Model):
         time_remaining = self.expiration_time
 
         if not self.is_locked:
-            return _(u'Not locked yet')
+            return _('Not locked yet')
         elif time_remaining is None:
-            return _(u'Infinite')
+            return _('Infinite')
         elif time_remaining <= 0:
-            return _(u'Forgotten')
+            return _('Forgotten')
         else:
-            return _(u'%(time_remaining)s seconds' % {'time_remaining': time_remaining})
-    get_expiration_time_text.short_description = _(u'Expiration time')
+            return _('%(time_remaining)s seconds' % {'time_remaining': time_remaining})
+    get_expiration_time_text.short_description = _('Expiration time')

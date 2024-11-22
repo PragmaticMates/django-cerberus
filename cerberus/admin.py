@@ -24,8 +24,8 @@ class LockoutAdmin(admin.ModelAdmin):
 
     def lock(self, request, queryset):
         queryset.update(is_locked=True)
-    lock.short_description = _(u'Lock users')
+    lock.short_description = _('Lock users')
 
     def unlock(self, request, queryset):
         queryset.update(is_locked=False)
-    unlock.short_description = _(u'Unlock users')
+    unlock.short_description = _('Unlock users')
